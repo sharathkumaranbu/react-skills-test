@@ -3,18 +3,24 @@ import { useContext } from "react";
 import { Avatar, Switch } from "@material-ui/core";
 
 import { ThemeContext } from "../providers/theme-provider";
+import getFirstLetter from "../utils/string-operations";
 
 function Header() {
-  const { toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const username = "Anirudhan Srisudhan";
   return (
     <header className="header">
-      <div className="logo_section">
-        <h1 className="logo">CRS</h1>
-      </div>
+      <h2 className="logo">CRS</h2>
       <div className="header_profile">
-        <Switch onChange={() => toggleTheme()} />
-        <Avatar sx={{ width: 24, height: 24 }}>SM</Avatar>
-        <h3 className="fullname">Firstname Lastname</h3>
+        <Switch
+          checked={theme !== "light"}
+          color="primary"
+          onChange={() => toggleTheme()}
+        />
+        <Avatar sx={{ width: 24, height: 24 }}>
+          {getFirstLetter(username)}
+        </Avatar>
+        <h3 className="fullname truncate">{username}</h3>
       </div>
     </header>
   );
