@@ -1,24 +1,35 @@
 .App {
   height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
-.App_light {
+main{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.light {
   background-color: white;
-  color: black;
+  color: #121212;
 }
 
-.App_dark {
+.dark {
   background-color: #121212;
   color: white;
 }
 
 .header{
   display: flex;
+  height: max-content;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .header_profile{
@@ -29,10 +40,51 @@
   align-items: center;
 }
 
-.fullname{
-  width:150px;
+h2{
+  line-height: normal;
+  margin: 0;
+}
+
+.truncate{
+  width:200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.fullname{
   margin: 0 8px;
+}
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f2f2f2;
+}
+
+.icon_container{
+  padding: 8px 16px;
+  margin: 0 2px;
+  border-radius: 8px;
+}
+.burger_menu{
+  padding: 16px;
+  margin: 0;
+}
+.icon_container:hover, .burger_menu:hover{
+  background-color: #f2f2f2;;
+  cursor: pointer;
+}
+.selected{
+  background-color: blue;
+  color: white;
+}
+.selected:hover{
+  background-color: darkblue;
+  color: white;
+}
+ul{
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
 }
