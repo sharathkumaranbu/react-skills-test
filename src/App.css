@@ -1,5 +1,5 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -11,25 +11,84 @@ main{
   flex-direction: column;
 }
 
+.container{
+  margin: 16px;
+}
+
+.traits_table_container{
+  border: 1px solid;
+  max-height: 450px;
+}
+
+.list_container{
+  max-height: 350px;
+  overflow: auto;
+  border: 1px solid;
+}
+.traits_table{
+  border: 1px solid;
+}
+
+.tab_group{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tab_utils{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
 .light {
   background-color: white;
+  border-color: #121212;
   color: #121212;
+  fill: #121212;
 }
 
 .dark {
   background-color: #121212;
+  border-color: white;
   color: white;
+  fill: white;
 }
 
 .header{
   display: flex;
   height: max-content;
-  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
   border-bottom: 1px solid #f2f2f2;
+}
+
+.column_filter{
+  position: absolute;
+  top:230px;
+  right:50px;
+  padding: 16px 8px;
+  border: 1px solid;
+  z-index: 1;
+  box-shadow: 0px 2px 2px 0px;
+}
+
+.anchor_button{
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
+.table_header{
+  font-weight: bold;
+  margin: 0 2px;
+  padding: 0;
 }
 
 .header_profile{
@@ -52,7 +111,7 @@ h2{
   text-overflow: ellipsis;
 }
 
-.fullname{
+.small_container{
   margin: 0 8px;
 }
 
@@ -60,6 +119,10 @@ h2{
   display: flex;
   flex-direction: column;
   border-right: 1px solid #f2f2f2;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .icon_container{
@@ -83,8 +146,12 @@ h2{
   background-color: darkblue;
   color: white;
 }
-ul{
-  list-style-type:none;
-  margin: 0;
+p{
+  margin: 8px 0;
   padding: 0;
+}
+
+.small_paragraph{
+  font-size: small;
+  font-weight: normal;
 }

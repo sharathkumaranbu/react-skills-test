@@ -63,7 +63,7 @@ function Sidebar() {
   const [selectedMenu, setSelectedMenu] = useState(menuList[1].id);
   const { theme } = useContext(ThemeContext);
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${theme}`}>
       <div className="burger_menu">
         <Menu />
       </div>

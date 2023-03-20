@@ -1,7 +1,10 @@
+import BasicTabs from "../components/simple-tab";
+
 function TraitManagement() {
   return (
-    <div>
-      <h1>TraitManagement</h1>
+    <div className="container">
+      <h2>Traits Management</h2>
+      <BasicTabs />
     </div>
   );
 }

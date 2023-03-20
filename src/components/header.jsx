@@ -9,7 +9,7 @@ function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const username = "Anirudhan Srisudhan";
   return (
-    <header className="header">
+    <header className={`header ${theme}`}>
       <h2 className="logo">CRS</h2>
       <div className="header_profile">
         <Switch
@@ -17,10 +17,10 @@ function Header() {
           color="primary"
           onChange={() => toggleTheme()}
         />
-        <Avatar sx={{ width: 24, height: 24 }}>
+        <Avatar sx={{ width: 24, height: 24 }} className="small_container">
           {getFirstLetter(username)}
         </Avatar>
-        <h3 className="fullname truncate">{username}</h3>
+        <h3 className="small_container truncate">{username}</h3>
       </div>
     </header>
   );

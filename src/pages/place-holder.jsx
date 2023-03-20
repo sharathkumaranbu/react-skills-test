@@ -1,7 +1,7 @@
-function PlaceHolder() {
+function PlaceHolder(heading) {
   return (
-    <div>
-      <h1>PlaceHolder</h1>
+    <div className="container">
+      <h1>{heading ?? "PlaceHolder"}</h1>
     </div>
   );
 }
