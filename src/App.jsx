@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 import Header from "./components/header";
@@ -26,7 +26,7 @@ function App() {
             <Header />
             <Switch>
               <Route exact path="/">
-                <Home />
+                <Redirect to="/trait-management" />
               </Route>
               <Route path="/home">
                 <Home />
@@ -35,19 +35,19 @@ function App() {
                 <TraitManagement />
               </Route>
               <Route path="/collaborate">
-                <PlaceHolder />
+                <PlaceHolder heading="Collaborate" />
               </Route>
               <Route path="/sync">
-                <PlaceHolder />
+                <PlaceHolder heading="Synchronise" />
               </Route>
               <Route path="/focus">
-                <PlaceHolder />
+                <PlaceHolder heading="Focus" />
               </Route>
               <Route path="/team">
-                <PlaceHolder />
+                <PlaceHolder heading="Team Building" />
               </Route>
               <Route path="/progress">
-                <PlaceHolder />
+                <PlaceHolder heading="Progress" />
               </Route>
             </Switch>
           </main>

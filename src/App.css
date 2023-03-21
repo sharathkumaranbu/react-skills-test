@@ -35,6 +35,33 @@ main{
   justify-content: space-between;
 }
 
+.search_field{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search_container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 8px;
+  height: 35px;
+}
+.search_input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+.search{
+  height: 30px;
+  font-size: 18px;
+}
+.search_icon{
+  margin-left: -32px;
+}
+
 .tab_utils{
   display: flex;
   flex-direction: row;
@@ -67,13 +94,21 @@ main{
 }
 
 .column_filter{
-  position: absolute;
   top:230px;
   right:50px;
+}
+
+.dropdown{
+  position: absolute;
   padding: 16px 8px;
   border: 1px solid;
   z-index: 1;
   box-shadow: 0px 2px 2px 0px;
+}
+
+.column_search{
+  top:170px;
+  right:120px;
 }
 
 .anchor_button{

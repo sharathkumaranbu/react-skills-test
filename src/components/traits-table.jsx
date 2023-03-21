@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   Button,
@@ -17,39 +17,22 @@ import {
 import { Tune } from "@material-ui/icons";
 
 import TraitModal from "./trait-modal";
-import traits from "../constants/get-all-traits.json";
 import useClickOutside from "../hooks/use-click-outside";
 import { ThemeContext } from "../providers/theme-provider";
 
-const headerRow = [
-  {
-    id: "trait-id",
-    label: "Trait ID",
-  },
-  {
-    id: "trait-name",
-    label: "Trait Name",
-  },
-  {
-    id: "description",
-    label: "Description",
-  },
-  {
-    id: "data-type",
-    label: "Data Type",
-  },
-  {
-    id: "personal-data",
-    label: "Personal Data",
-  },
-];
-
-const tableData = traits.data.items;
-
-export default function TraitsTable({ selectedItems, setSelectedItems }) {
+export default function TraitsTable({
+  selectedItems,
+  setSelectedItems,
+  headerRow,
+  traitsData,
+  tableData,
+}) {
   const { theme } = useContext(ThemeContext);
-  const [pageNo, setPageNo] = useState(traits.data.page - 1);
-  const [itemsPerPage, setItemsPerPage] = useState(traits.data.itemsPerPage);
+  const [pageNo, setPageNo] = useState(traitsData.page - 1);
+  const [itemsPerPage, setItemsPerPage] = useState(traitsData.itemsPerPage);
+  const [pageData, setPageData] = useState(
+    tableData.slice(pageNo * itemsPerPage, pageNo * itemsPerPage + itemsPerPage)
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTrait, setSelectedTrait] = useState();
@@ -57,12 +40,24 @@ export default function TraitsTable({ selectedItems, setSelectedItems }) {
     headerRow.map((row) => row.id)
   );
 
-  const pageData = tableData.slice(
-    pageNo * itemsPerPage,
-    pageNo * itemsPerPage + itemsPerPage
-  );
+  useEffect(() => {
+    setPageData(
+      tableData.slice(
+        pageNo * itemsPerPage,
+        pageNo * itemsPerPage + itemsPerPage
+      )
+    );
+  }, [pageNo, itemsPerPage, setPageData, tableData]);
 
-  function handleChangePage() {}
+  function handleChangePage(newPage) {
+    setPageNo(newPage);
+    setPageData(
+      tableData.slice(
+        newPage * itemsPerPage,
+        newPage * itemsPerPage + itemsPerPage
+      )
+    );
+  }
 
   function handleSelectAllToggle(event) {
     if (event.target.checked) {
@@ -142,7 +137,7 @@ export default function TraitsTable({ selectedItems, setSelectedItems }) {
                   <Tune className={theme} />
                 </Button>
                 {isOpen && (
-                  <FormGroup className={`column_filter ${theme}`}>
+                  <FormGroup className={`column_filter dropdown ${theme}`}>
                     {headerRow.map((headCell) => (
                       <FormControlLabel
                         control={
@@ -215,12 +210,11 @@ export default function TraitsTable({ selectedItems, setSelectedItems }) {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
-        count={traits.data.totalItems}
+        count={tableData.length}
         rowsPerPage={itemsPerPage}
         page={pageNo}
-        onChangePage={() => handleChangePage()}
-        onPageChange={() => handleChangePage()}
-        onRowsPerPageChange={(event) => {
+        onChangePage={(event, page) => handleChangePage(page)}
+        onChangeRowsPerPage={(event) => {
           setItemsPerPage(parseInt(event.target.value, 10));
           setPageNo(0);
         }}
