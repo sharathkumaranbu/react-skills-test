@@ -16,25 +16,29 @@ import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 import EcoSystems from "./EcoSystems";
 import MarketingPrograms from "./MarketingPrograms";
 import TraitDetails from "./TraitDetails";
-import { IndividualTrait } from "../Sample Response/TraitResponse";
+import { fetchIndividualTraits } from "../Sample Response/TraitResponse";
 
-export default function ViewTrait({ open, setOpen }) {
+export default function ViewTrait({ open, setOpen, selectedTrait }) {
   const [value, setValue] = useState("1");
   const [traitData, setTraitData] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
-    // fetch api and set the response
-    setTraitData(IndividualTrait);
-  });
+    // fetch api with selectedTrait and set the response
+    const response = fetchIndividualTraits(selectedTrait);
+    setTraitData(response);
+  }, []);
+
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={handleClose}>
-      <DialogTitle>Trait ID - 1</DialogTitle>
+      <DialogTitle>Trait ID - {selectedTrait}</DialogTitle>
       <DialogContentText style={{ padding: "16px 24px" }}>
         This trait has the following details and mappings
       </DialogContentText>
@@ -53,7 +57,10 @@ export default function ViewTrait({ open, setOpen }) {
               </Box>
             </Box>
             <TabPanel value="1" className="nopadding">
-              <TraitDetails data={traitData.data} />
+              <TraitDetails
+                data={traitData.data}
+                selectedTrait={selectedTrait}
+              />
             </TabPanel>
             <TabPanel value="2" className="nopadding">
               <MarketingPrograms

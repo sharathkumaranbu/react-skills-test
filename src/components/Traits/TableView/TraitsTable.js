@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // import { alpha } from "@material-ui/styles";//
 import {
@@ -16,10 +16,8 @@ import {
 import { TableHeader, StyledTableRow } from "./TableHeader";
 import PaginationContainer from "./TablePagination";
 import { headCells } from "../ColumnConfig";
-import { TraitResponseData } from "../Sample Response/TraitResponse";
+import { fetchTraits } from "../Sample Response/TraitResponse";
 import ViewTrait from "../ViewTraits/ViewTrait";
-
-const rows = TraitResponseData.data.items;
 
 export default function TraitsTable() {
   const [selected, setSelected] = useState([]);
@@ -27,14 +25,21 @@ export default function TraitsTable() {
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
-  const [tabledata] = useState(rows);
-  const [FilteredData, setFilteredData] = useState(rows);
+  const [selectedTrait, setSelectedTrait] = useState("");
+  const [tabledata, setTableData] = useState([]);
+  const [FilteredData, setFilteredData] = useState([]);
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  useEffect(() => {
+    const response = fetchTraits();
+    setFilteredData(response);
+    setTableData(response);
+  }, []);
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.traitId);
+      const newSelected = FilteredData.map((n) => n.traitId);
       setSelected(newSelected);
       return;
     }
@@ -69,7 +74,8 @@ export default function TraitsTable() {
     setPage(1);
   };
 
-  const handleView = () => {
+  const handleView = (traitId) => {
+    setSelectedTrait(traitId);
     setOpen(true);
   };
 
@@ -96,11 +102,11 @@ export default function TraitsTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - FilteredData.length) : 0;
 
   const startIndex = rowsPerPage * (page - 1);
   const endIndex = rowsPerPage * page;
-  const pageCount = Math.ceil(rows.length / rowsPerPage);
+  const pageCount = Math.ceil(FilteredData.length / rowsPerPage);
 
   return (
     <Box style={{ width: "100%", position: "relative" }}>
@@ -109,7 +115,6 @@ export default function TraitsTable() {
           style={{ background: "blue", color: "#fff" }}
           size="small"
           variant="contained"
-          primary
         >
           {selected.length ? "REUSE" : "Create Trait"}
         </Button>
@@ -169,7 +174,7 @@ export default function TraitsTable() {
                       <button
                         type="submit"
                         className="viewTrait"
-                        onClick={handleView}
+                        onClick={() => handleView(row.traitId)}
                       >
                         {row.traitId}
                       </button>
@@ -214,7 +219,13 @@ export default function TraitsTable() {
         goToPage={goToPage}
         pageCount={pageCount}
       />
-      {open ? <ViewTrait setOpen={setOpen} open={open} /> : null}
+      {open ? (
+        <ViewTrait
+          setOpen={setOpen}
+          open={open}
+          selectedTrait={selectedTrait}
+        />
+      ) : null}
     </Box>
   );
 }

@@ -4,11 +4,15 @@ import { Table, TableRow, TableCell } from "@material-ui/core";
 
 import { viewColumnsfeilds } from "../ColumnConfig";
 
-export default function TraitDetails({ data }) {
+export default function TraitDetails({ data, selectedTrait }) {
   return (
     <div className="traitDetails">
       <Table>
-        {viewColumnsfeilds.map((feild) => {
+        <TableRow>
+          <TableCell variant="head">Trait ID</TableCell>
+          <TableCell>{selectedTrait}</TableCell>
+        </TableRow>
+        {viewColumnsfeilds.slice(1).map((feild) => {
           return (
             <TableRow>
               <TableCell variant="head">{feild.name}</TableCell>

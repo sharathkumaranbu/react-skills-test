@@ -1538,3 +1538,11 @@ export const TraitResponseData = {
 };
 
 export default TraitResponseData;
+
+export const fetchTraits = () => {
+  return TraitResponseData.data.items;
+};
+
+export const fetchIndividualTraits = () => {
+  return IndividualTrait;
+};
