@@ -3,13 +3,18 @@ import React from "react";
 import { render } from "react-dom";
 
 import "./index.css";
+import "./myapp.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
+import { AppThemeProvider } from "./Theme-Provider/Provider";
 
 const root = document.getElementById("root");
 render(
   <React.StrictMode>
-    <App />
+    <AppThemeProvider>
+      <App />
+    </AppThemeProvider>
   </React.StrictMode>,
   root
 );
